@@ -21,16 +21,20 @@ namespace Expense_Tracker.Controllers
         // GET: Category
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return _context.Categories != null ?
+                        View(await _context.Categories.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
         }
 
+
         // GET: Category/AddOrEdit
-        public IActionResult AddOrEdit(int id=0)
+        public IActionResult AddOrEdit(int id = 0)
         {
             if (id == 0)
                 return View(new Category());
             else
                 return View(_context.Categories.Find(id));
+
         }
 
         // POST: Category/AddOrEdit
@@ -42,21 +46,26 @@ namespace Expense_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(category.CategoryId == 0)
+                if (category.CategoryId == 0)
                     _context.Add(category);
                 else
                     _context.Update(category);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
             return View(category);
         }
+
 
         // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (_context.Categories == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
+            }
             var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
@@ -66,5 +75,6 @@ namespace Expense_Tracker.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
