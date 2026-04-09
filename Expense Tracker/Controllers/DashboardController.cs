@@ -82,7 +82,7 @@ namespace Expense_Tracker.Controllers
                 .ToList();
 
             //Combine Income & Expense
-            string[] Last7Days = Enumerable.Range(0, 7)
+            string[] Last7Days = Enumerable.Range(0, 28)
                 .Select(i => StartDate.AddDays(i).ToString("dd-MMM"))
                 .ToArray();
 

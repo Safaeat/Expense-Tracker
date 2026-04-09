@@ -54,16 +54,17 @@
         <div class="logo-wrapper">
             <div class="app-logo">
                 <img src="~/logo.png" />
+                <h3>Expense Tracker</h3>
             </div>
             <div class="w-100"></div>
-            <i id="sidebar-toggler" class="fa-solid"></i>
+            <i id="sidebar-toggler" class="fa-solid fa-angle-left"></i>
         </div>
 
         <div class="profile-wrapper">
             <img class="profile-pic" src="~/profile.jpg" />
             <div class="titles d-flex flex-column ps-3">
-                <h6 class="mb-0">Wallet App</h6>
-                <span class="text-muted">Ashton Cox</span>
+                <h6 class="mb-0">Safaeat Molla</h6>
+                <span class="text-muted">Dhaka, Bangalesh</span>
             </div>
         </div>
 
@@ -75,11 +76,22 @@
 </ejs-sidebar>
 
 <script>
-    document.addEventListener('DOMContentLoaded',function (){
-        dockBar = document.getElementById('sidebar').ej2_instances[0];
-        document.getElementById('sidebar-toggler').onclick = function () {
-            dockBar.toggle();
+    document.addEventListener('DOMContentLoaded', function() {
+        var dockBar = document.getElementById('sidebar').ej2_instances[0];
+        var toggler = document.getElementById('sidebar-toggler');
+
+        toggler.onclick = function () {
+            dockBar.toggle(); // Syncfusion handles the collapse internally
+            // Change icon after toggle
+            setTimeout(() => {
+                if (dockBar.isCollapsed) {
+                    toggler.classList.remove('fa-angle-left');
+                    toggler.classList.add('fa-angle-right');
+                } else {
+                    toggler.classList.remove('fa-angle-right');
+                    toggler.classList.add('fa-angle-left');
+                }
+            }, 100); // delay to allow Syncfusion to update state
         };
     });
-
 </script>

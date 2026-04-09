@@ -309,12 +309,13 @@ img.profile-pic {
     transform: translateX(0%);
 }
 
-#sidebar.e-open #sidebar-toggler:before {
-    content: '\f100'
+#sidebar.e-close .app-logo img {
+    width: 40px; /* smaller logo */
+    height: auto;
 }
 
-#sidebar.e-close #sidebar-toggler:before {
-    content: '\f101'
+#sidebar.e-open .app-logo img {
+    width: 60px; /* normal logo */
 }
 
 /*Widget*/
